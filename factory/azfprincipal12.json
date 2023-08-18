@@ -1,0 +1,9 @@
+{
+	"name": "azfprincipal12",
+	"location": "brazilsouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2b72c676-110c-4540-9a23-49b765f87d39",
+		"tenantId": "f6c8f1f5-9e3d-4287-b07b-eeca742c9f2d"
+	}
+}
