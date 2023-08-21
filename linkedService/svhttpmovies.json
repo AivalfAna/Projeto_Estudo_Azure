@@ -1,0 +1,12 @@
+{
+	"name": "svhttpmovies",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://github.com/cacaviana/DataFactory/blob/bc8577c590c452256ee8525253f582ee1db57b5a/moviesDB.csv",
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
