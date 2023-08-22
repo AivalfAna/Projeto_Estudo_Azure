@@ -1,0 +1,57 @@
+{
+	"name": "DFCorrigeMovies",
+	"properties": {
+		"folder": {
+			"name": "DFCorrigeMovies"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DLDSMovies",
+						"type": "DatasetReference"
+					},
+					"name": "dlMovies"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "SelectCorrecaoNome"
+				},
+				{
+					"name": "FiltroYearMovie"
+				},
+				{
+					"name": "DerivadaPrimeiroGenre"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          movie as string,",
+				"          title as string,",
+				"          genres as string,",
+				"          year as string,",
+				"          Rating as string,",
+				"          {Rotton Tomato} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> dlMovies",
+				"dlMovies select(mapColumn(",
+				"          movie,",
+				"          title,",
+				"          genres,",
+				"          year,",
+				"          Rating,",
+				"          {Rottan Tomato} = {Rotton Tomato}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectCorrecaoNome",
+				"SelectCorrecaoNome filter(toInteger(year) > 1950) ~> FiltroYearMovie",
+				"FiltroYearMovie derive(PrimaryGenre = iif(locate('|', genres) > 1, left(genres, locate('|', genres) - 1), genres)) ~> DerivadaPrimeiroGenre"
+			]
+		}
+	}
+}
